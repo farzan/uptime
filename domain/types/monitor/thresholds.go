@@ -13,7 +13,7 @@ func NewThreshold(ok int, warning int, critical int) Thresholds {
 }
 
 func NewDefaultThreshold() Thresholds {
-	return &thresholds{2000, 5000, 15000}
+	return thresholds{2000, 5000, 15000}
 }
 
 
