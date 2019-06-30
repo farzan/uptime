@@ -3,6 +3,8 @@ package monitoring
 import (
 	"UptimeMonitor/dataAccess/repositories"
 	"UptimeMonitor/domain/types/monitor"
+	workerModel "UptimeMonitor/domain/types/monitor/worker"
+	"fmt"
 )
 
 func Run() {
@@ -15,7 +17,7 @@ func Run() {
 }
 
 func startWorker(mon monitor.Monitor) {
-	//fmt.Println(monitor)
-	worker := monitor.NewWorker(mon)
+	fmt.Printf("Starting monitor id: %v\n", mon.Id)
+	worker := workerModel.NewWorker(mon)
 	worker.Start()
 }

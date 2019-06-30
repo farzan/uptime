@@ -2,13 +2,15 @@ package services
 
 import (
 	"UptimeMonitor/domain/types/monitor"
+	"fmt"
 	"math/rand"
 	"time"
 )
 
 var(
+	// Times in milliseconds
 	minDelay = 100
-	maxDelay = 2000
+	maxDelay = 15000
 )
 
 type HttpServiceFake struct {
@@ -18,8 +20,9 @@ type HttpServiceFake struct {
 func (s HttpServiceFake) Process(request monitor.Request) monitor.Response {
 	startTime := time.Now()
 
-	delay := time.Duration(minDelay + rand.Intn(maxDelay - minDelay))
-	time.Sleep(delay)
+	delayInMilliseconds := minDelay + rand.Intn(maxDelay-minDelay)
+	fmt.Printf("Request will take %v ms, monId: %v\n", delayInMilliseconds, request.Monitor.Id)
+	time.Sleep(time.Duration(delayInMilliseconds) * time.Millisecond)
 
 	endTime := time.Now()
 
