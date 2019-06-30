@@ -4,7 +4,7 @@ import (
 	domainContracts "UptimeMonitor/domain/contracts/domain"
 	"UptimeMonitor/domain/services"
 	"UptimeMonitor/domain/types/monitor"
-	"fmt"
+	debug "UptimeMonitor/utils"
 	"math"
 	"time"
 )
@@ -30,7 +30,7 @@ func (w Worker) Start() {
 		response := waitForResponse(w)
 
 		delay := getDelay(response)
-		fmt.Printf("[%v] Wait %v\n", w.monitor.Id, delay)
+		debug.Printf("[%v] Wait %v\n", w.monitor.Id, delay)
 		time.Sleep(delay)
 	}
 }
@@ -53,13 +53,13 @@ func waitForResponse(worker Worker) monitor.Response {
 	for {
 		select {
 		case response := <- worker.ResponseCh:
-			fmt.Printf("[%v] Response received; Dur: %v\n",
+			debug.Printf("[%v] Response received; Dur: %v\n",
 				response.Request.Monitor.Id,
 				response.End.Sub(response.Start),
 			)
 			return response
 		default: <- time.After(500 * time.Millisecond)
-			fmt.Print(".")
+			debug.Print(".")
 		}
 	}
 }

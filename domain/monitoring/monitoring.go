@@ -4,7 +4,7 @@ import (
 	"UptimeMonitor/dataAccess/repositories"
 	"UptimeMonitor/domain/types/monitor"
 	workerModel "UptimeMonitor/domain/types/monitor/worker"
-	"fmt"
+	debug "UptimeMonitor/utils"
 )
 
 func Run() {
@@ -17,8 +17,8 @@ func Run() {
 }
 
 func startWorker(mon monitor.Monitor) {
-	fmt.Printf("[%v] Starting...\n", mon.Id)
+	debug.Printf("[%v] Starting...\n", mon.Id)
 	worker := workerModel.NewWorker(mon)
 	go worker.Start()
-	fmt.Printf("[%v] Started\n", mon.Id)
+	debug.Printf("[%v] Started\n", mon.Id)
 }
