@@ -12,19 +12,21 @@ import (
 type Worker interface {
 	Start()
 	Stop()
+	AttachResponseObserver(observer domainContracts.ResponseObserver)
 }
 
 type worker struct {
-	monitor    monitor.Monitor
-	ResponseCh chan monitor.Response
-	stopCh     chan bool
+	monitor    		monitor.Monitor
+	ResponseCh 		chan monitor.Response
+	stopCh     		chan bool
+	respObservers	[]domainContracts.ResponseObserver
 }
 
 func NewWorker(mon monitor.Monitor) Worker {
-	return worker{
-		mon,
-		make(chan monitor.Response),
-		make(chan bool),
+	return &worker{
+		monitor:    mon,
+		ResponseCh: make(chan monitor.Response),
+		stopCh:     make(chan bool),
 	}
 }
 
@@ -58,10 +60,7 @@ func waitForResponse(worker worker) monitor.Response {
 	for {
 		select {
 		case response := <- worker.ResponseCh:
-			debug.Printf("[%v] Response received; Dur: %v\n",
-				response.Request.Monitor.Id,
-				response.End.Sub(response.Start),
-			)
+			worker.notifyResponseObservers(response)
 			return response
 		default: <- time.After(500 * time.Millisecond)
 			debug.Print(".")
@@ -79,4 +78,14 @@ func getHttpService() domainContracts.HttpService {
 
 func (w worker) Stop() {
 
+}
+
+func (w *worker) AttachResponseObserver(observer domainContracts.ResponseObserver) {
+	w.respObservers = append(w.respObservers, observer)
+}
+
+func (w worker) notifyResponseObservers(response monitor.Response) {
+	for _, observer := range w.respObservers {
+		observer.Notify(response)
+	}
 }

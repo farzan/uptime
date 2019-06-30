@@ -9,3 +9,7 @@ type Response struct {
 	StatusCode int
 	Error string
 }
+
+func (r Response) Duration() time.Duration {
+	return r.End.Sub(r.Start)
+}
