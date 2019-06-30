@@ -30,7 +30,7 @@ func (w Worker) Start() {
 		response := waitForResponse(w)
 
 		delay := getDelay(response)
-		fmt.Printf("Wait %v\n", delay)
+		fmt.Printf("[%v] Wait %v\n", w.monitor.Id, delay)
 		time.Sleep(delay)
 	}
 }
@@ -53,7 +53,7 @@ func waitForResponse(worker Worker) monitor.Response {
 	for {
 		select {
 		case response := <- worker.ResponseCh:
-			fmt.Printf("Response received; Id: %v, Dur: %v\n",
+			fmt.Printf("[%v] Response received; Dur: %v\n",
 				response.Request.Monitor.Id,
 				response.End.Sub(response.Start),
 			)

@@ -21,7 +21,7 @@ func (s HttpServiceFake) Process(request monitor.Request) monitor.Response {
 	startTime := time.Now()
 
 	delayInMilliseconds := minDelay + rand.Intn(maxDelay-minDelay)
-	fmt.Printf("Request will take %v ms, monId: %v\n", delayInMilliseconds, request.Monitor.Id)
+	fmt.Printf("[%v] Request will take %v ms\n", request.Monitor.Id, delayInMilliseconds)
 	time.Sleep(time.Duration(delayInMilliseconds) * time.Millisecond)
 
 	endTime := time.Now()

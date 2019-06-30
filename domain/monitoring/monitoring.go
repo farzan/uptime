@@ -17,7 +17,8 @@ func Run() {
 }
 
 func startWorker(mon monitor.Monitor) {
-	fmt.Printf("Starting monitor id: %v\n", mon.Id)
+	fmt.Printf("[%v] Starting...\n", mon.Id)
 	worker := workerModel.NewWorker(mon)
-	worker.Start()
+	go worker.Start()
+	fmt.Printf("[%v] Started\n", mon.Id)
 }
