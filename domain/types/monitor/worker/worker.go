@@ -9,21 +9,26 @@ import (
 	"time"
 )
 
-type Worker struct {
+type Worker interface {
+	Start()
+	Stop()
+}
+
+type worker struct {
 	monitor    monitor.Monitor
 	ResponseCh chan monitor.Response
 	stopCh     chan bool
 }
 
 func NewWorker(mon monitor.Monitor) Worker {
-	return Worker{
+	return worker{
 		mon,
 		make(chan monitor.Response),
 		make(chan bool),
 	}
 }
 
-func (w Worker) Start() {
+func (w worker) Start() {
 	for {
 		go sendRequest(w)
 
@@ -43,13 +48,13 @@ func getDelay(response monitor.Response) time.Duration {
 	return normalizedDelay
 }
 
-func sendRequest(worker Worker) {
+func sendRequest(worker worker) {
 	request := monitor.Request{Monitor: worker.monitor}
 
 	worker.ResponseCh <- getResponse(request)
 }
 
-func waitForResponse(worker Worker) monitor.Response {
+func waitForResponse(worker worker) monitor.Response {
 	for {
 		select {
 		case response := <- worker.ResponseCh:
@@ -72,6 +77,6 @@ func getHttpService() domainContracts.HttpService {
 	return services.HttpServiceFake{}
 }
 
-func (w Worker) Stop() {
+func (w worker) Stop() {
 
 }
