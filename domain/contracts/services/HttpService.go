@@ -1,4 +1,4 @@
-package domain
+package services
 
 import "UptimeMonitor/domain/types/monitor"
 

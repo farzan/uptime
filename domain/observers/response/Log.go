@@ -17,7 +17,7 @@ type Log struct {
 
 }
 
-func (t Log) Notify(response monitor.Response) {
+func (l Log) Notify(response monitor.Response) {
 	log.Info("Timestamp: %v, Monitor Id: %v, Status: %v, Response time: %v",
 		response.Start.Format(time.RFC3339),
 		response.Request.Monitor.Id,

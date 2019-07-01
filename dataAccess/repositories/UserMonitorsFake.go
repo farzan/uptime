@@ -49,8 +49,8 @@ func (m UserMonitorsFake) Delete(idOrModel interface{}) {
 }
 
 func (m UserMonitorsFake) deleteById(id int) {
-	for index, monitor := range m.monitors {
-		if monitor.Id == id {
+	for index, mon := range m.monitors {
+		if mon.Id == id {
 			m.monitors = append(m.monitors[:index], m.monitors[index + 1:]...)
 
 			return

@@ -1,7 +1,7 @@
 package worker
 
 import (
-	domainContracts "UptimeMonitor/domain/contracts/domain"
+	domainContracts "UptimeMonitor/domain/contracts/services"
 	"UptimeMonitor/domain/services"
 	"UptimeMonitor/domain/types/monitor"
 	debug "UptimeMonitor/utils"
@@ -43,7 +43,7 @@ func (w worker) Start() {
 }
 
 func getDelay(response monitor.Response) time.Duration {
-	requestDuration := response.End.Sub(response.Start)
+	requestDuration := response.Duration()
 	delay := time.Duration(response.Request.Monitor.Interval) * time.Second - requestDuration
 	normalizedDelay := time.Duration(math.Max(0, float64(delay)))
 

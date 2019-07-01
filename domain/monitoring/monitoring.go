@@ -29,6 +29,7 @@ func createWorker(mon monitor.Monitor) workerModel.Worker {
 
 	worker.AttachResponseObserver(response.Terminal{})
 	worker.AttachResponseObserver(response.Log{})
+	worker.AttachResponseObserver(response.Database{})
 
 	return worker
 }
