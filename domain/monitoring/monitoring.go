@@ -10,7 +10,7 @@ import (
 
 func Run() {
 	repository := repositories.NewAllMonitorsFake()
-	monitors := repository.Get()
+	monitors := repository.All()
 
 	for _, mon := range monitors {
 		startWorker(mon)

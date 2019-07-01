@@ -6,11 +6,11 @@ import (
 	"UptimeMonitor/domain/types"
 )
 
-type UserController struct {
+type DefaultController struct {
 	controllers.BaseController
 }
 
-func (c *UserController) Get() {
+func (c *DefaultController) Get() {
 	c.Layout = "layout/main.tpl"
 	c.TplName = "user/user_dashboard.tpl"
 
@@ -20,7 +20,7 @@ func (c *UserController) Get() {
 
 func getMonitors() interface{} {
 	// @todo Fake
-	return repositories.NewUserMonitorsFake().Get()
+	return repositories.NewUserMonitorsFake().All()
 }
 
 func getUser() types.User {

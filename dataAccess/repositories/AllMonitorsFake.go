@@ -6,7 +6,7 @@ type AllMonitorsFake struct {
 	monitors []monitor.Monitor
 }
 
-func (m AllMonitorsFake) Get() []monitor.Monitor {
+func (m AllMonitorsFake) All() []monitor.Monitor {
 	return m.monitors
 }
 

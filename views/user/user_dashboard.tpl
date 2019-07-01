@@ -28,11 +28,11 @@
                     </div>
                 </div>
                 <div class="float-right">
-                    <a href="/monitor/report/{{$monitor.Id}}">report</a>
+                    <a href="/user/monitor/{{$monitor.Id}}/report">report</a>
                     |
-                    <a href="/monitor/update/{{$monitor.Id}}">update</a>
+                    <a href="/user/monitor/{{$monitor.Id}}/update">update</a>
                     |
-                    <a href="/monitor/delete/{{$monitor.Id}}">delete</a>
+                    <a href="/user/monitor/{{$monitor.Id}}/delete">delete</a>
                 </div>
             </li>
             {{end}}

@@ -25,6 +25,11 @@
             </div>
 
             <input class="btn btn-primary", type="submit" value="Login">
+
+            <br>
+            <br>
+            <br>
+            <a href="/user">User monitors</a>
         </form>
     </div>
 </body>

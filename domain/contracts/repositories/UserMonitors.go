@@ -5,7 +5,8 @@ import (
 )
 
 type UserMonitors interface {
-	Get() []monitor.Monitor
+	All() []monitor.Monitor
+	Get(id int) monitor.Monitor
 	Count() int
 	Add(monitor monitor.Monitor)
 	Update(monitor monitor.Monitor)

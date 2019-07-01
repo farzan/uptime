@@ -14,8 +14,12 @@ func NewUserMonitorsFake() *UserMonitorsFake {
 	return &UserMonitorsFake{monitors: monitors}
 }
 
-func (m UserMonitorsFake) Get() []monitor.Monitor {
+func (m UserMonitorsFake) All() []monitor.Monitor {
 	return m.monitors
+}
+
+func (m UserMonitorsFake) Get(id int) monitor.Monitor {
+	return m.monitors[id]
 }
 
 func (m UserMonitorsFake) Count() int {

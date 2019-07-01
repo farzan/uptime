@@ -5,7 +5,7 @@ import (
 	"UptimeMonitor/domain/entities"
 	"UptimeMonitor/domain/services/filters"
 	"UptimeMonitor/domain/types/monitor"
-	"fmt"
+	debug "UptimeMonitor/utils"
 )
 
 func NewMonitoringResultsServiceFake() services.MonitoringResultService {
@@ -39,7 +39,7 @@ func (s monitoringResultServiceFake) StoreResponse(response entities.Response) {
 		lengths[k] = len(v)
 	}
 
-	fmt.Printf("=====response stored; count: %v\n", lengths)
+	debug.Println("=====response stored; count: %v\n", lengths)
 }
 
 func (s monitoringResultServiceFake) FindResponseById(id int) (entities.Response, error) {
@@ -51,8 +51,6 @@ func (s monitoringResultServiceFake) FindResponsesByFilter(filter filters.Respon
 	monId := filter.GetMonitorId()
 	set := s.responses[monId]
 	pos := len(set) - filter.GetCount()
-
-	fmt.Printf("===============Pos: %v", pos)
 
 	if pos < 0 {
 		pos = 0
