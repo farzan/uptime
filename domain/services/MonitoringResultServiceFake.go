@@ -39,7 +39,7 @@ func (s monitoringResultServiceFake) StoreResponse(response entities.Response) {
 		lengths[k] = len(v)
 	}
 
-	debug.Println("=====response stored; count: %v\n", lengths)
+	debug.Printf("=====response stored; count: %v\n", lengths)
 }
 
 func (s monitoringResultServiceFake) FindResponseById(id int) (entities.Response, error) {
