@@ -38,3 +38,7 @@ func (r Response) getMonitor() monitor.Monitor {
 	//todo Refactor
 	return repositories.NewUserMonitorsFake().Get(r.MonitorId)
 }
+
+func (r Response) IsError() bool {
+	return r.StatusCode < 200 || r.StatusCode > 299
+}
