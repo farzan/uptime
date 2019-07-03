@@ -8,7 +8,7 @@ import (
 )
 
 func Run() {
-	repository := repositories.NewAllMonitorsFake()
+	repository := repositories.NewAllMonitorsRepositoryFake()
 	monitors := repository.All()
 
 	for _, mon := range monitors {
