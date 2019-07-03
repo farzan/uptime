@@ -20,7 +20,7 @@ func (c *DefaultController) Get() {
 
 func getMonitors() interface{} {
 	// @todo Fake
-	return repositories.NewUserMonitorsFake().All()
+	return repositories.NewUserMonitorsRepositoryFake().All()
 }
 
 func getUser() types.User {

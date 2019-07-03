@@ -2,6 +2,6 @@ package repositories
 
 import "UptimeMonitor/domain/types/monitor"
 
-type AllMonitors interface {
+type AllMonitorsRepository interface {
 	All() []monitor.Monitor
 }

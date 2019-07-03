@@ -5,7 +5,7 @@ import (
 	"UptimeMonitor/domain/services/filters"
 )
 
-type MonitorResponses interface {
+type MonitorResponsesRepository interface {
 	Store(response entities.Response)
 	Find(id int) entities.Response
 	FindByFilter(filter filters.ResponseFilter) []entities.Response

@@ -4,7 +4,7 @@ import (
 	"UptimeMonitor/domain/types/monitor"
 )
 
-type UserMonitors interface {
+type UserMonitorsRepository interface {
 	All() []monitor.Monitor
 	Get(id int) monitor.Monitor
 	Count() int

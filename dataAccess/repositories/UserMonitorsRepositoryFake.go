@@ -4,33 +4,33 @@ import (
 	"UptimeMonitor/domain/types/monitor"
 )
 
-type UserMonitorsFake struct {
+type UserMonitorsRepositoryFake struct {
 	monitors []monitor.Monitor
 }
 
-func NewUserMonitorsFake() *UserMonitorsFake {
-	monitors := NewAllMonitorsFake().monitors
+func NewUserMonitorsRepositoryFake() *UserMonitorsRepositoryFake {
+	monitors := NewAllMonitorsRepositoryFake().monitors
 
-	return &UserMonitorsFake{monitors: monitors}
+	return &UserMonitorsRepositoryFake{monitors: monitors}
 }
 
-func (m UserMonitorsFake) All() []monitor.Monitor {
+func (m UserMonitorsRepositoryFake) All() []monitor.Monitor {
 	return m.monitors
 }
 
-func (m UserMonitorsFake) Get(id int) monitor.Monitor {
+func (m UserMonitorsRepositoryFake) Get(id int) monitor.Monitor {
 	return m.monitors[id]
 }
 
-func (m UserMonitorsFake) Count() int {
+func (m UserMonitorsRepositoryFake) Count() int {
 	return len(m.monitors)
 }
 
-func (m UserMonitorsFake) Add(monitor monitor.Monitor) {
+func (m UserMonitorsRepositoryFake) Add(monitor monitor.Monitor) {
 	m.monitors = append(m.monitors, monitor)
 }
 
-func (m UserMonitorsFake) Update(monitor monitor.Monitor) {
+func (m UserMonitorsRepositoryFake) Update(monitor monitor.Monitor) {
 	for i, mon := range m.monitors {
 		if monitor.Id == mon.Id {
 			m.monitors[i] = monitor
@@ -42,7 +42,7 @@ func (m UserMonitorsFake) Update(monitor monitor.Monitor) {
 	// todo Raise error
 }
 
-func (m UserMonitorsFake) Delete(idOrModel interface{}) {
+func (m UserMonitorsRepositoryFake) Delete(idOrModel interface{}) {
 	if id, ok := idOrModel.(int); ok {
 		m.deleteById(id)
 	} else if model, ok := idOrModel.(monitor.Monitor); ok {
@@ -52,7 +52,7 @@ func (m UserMonitorsFake) Delete(idOrModel interface{}) {
 	// todo Raise error
 }
 
-func (m UserMonitorsFake) deleteById(id int) {
+func (m UserMonitorsRepositoryFake) deleteById(id int) {
 	for index, mon := range m.monitors {
 		if mon.Id == id {
 			m.monitors = append(m.monitors[:index], m.monitors[index + 1:]...)

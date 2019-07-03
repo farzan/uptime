@@ -36,7 +36,7 @@ func (r Response) Duration() time.Duration {
 
 func (r Response) getMonitor() monitor.Monitor {
 	//todo Refactor
-	return repositories.NewUserMonitorsFake().Get(r.MonitorId)
+	return repositories.NewUserMonitorsRepositoryFake().Get(r.MonitorId)
 }
 
 func (r Response) IsError() bool {
