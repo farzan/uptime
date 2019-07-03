@@ -2,14 +2,14 @@ package response
 
 import (
 	serviceContracts "UptimeMonitor/domain/contracts/services"
-	"UptimeMonitor/domain/services"
 	"UptimeMonitor/domain/types/monitor"
+	"UptimeMonitor/serviceProviders"
 )
 
 var service serviceContracts.MonitoringResultService
 
 func init() {
-	service = services.GetMonitoringResultService()
+	service = serviceProviders.GetMonitoringResultService()
 }
 
 type Database struct {

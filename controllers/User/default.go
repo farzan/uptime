@@ -2,8 +2,8 @@ package User
 
 import (
 	"UptimeMonitor/controllers"
-	"UptimeMonitor/dataAccess/repositories"
 	"UptimeMonitor/domain/types"
+	"UptimeMonitor/serviceProviders"
 )
 
 type DefaultController struct {
@@ -20,7 +20,7 @@ func (c *DefaultController) Get() {
 
 func getMonitors() interface{} {
 	// @todo Fake
-	return repositories.NewUserMonitorsRepositoryFake().All()
+	return serviceProviders.GetUserMonitorsRepository().All()
 }
 
 func getUser() types.User {

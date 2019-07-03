@@ -1,14 +1,14 @@
 package monitoring
 
 import (
-	"UptimeMonitor/dataAccess/repositories"
 	"UptimeMonitor/domain/observers/response"
 	"UptimeMonitor/domain/types/monitor"
 	workerModel "UptimeMonitor/domain/types/monitor/worker"
+	"UptimeMonitor/serviceProviders"
 )
 
 func Run() {
-	repository := repositories.NewAllMonitorsRepositoryFake()
+	repository := serviceProviders.GetAllMonitorsRepository()
 	monitors := repository.All()
 
 	for _, mon := range monitors {

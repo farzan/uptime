@@ -3,8 +3,8 @@ package User
 import (
 	"UptimeMonitor/controllers"
 	"UptimeMonitor/domain/entities"
-	"UptimeMonitor/domain/services"
 	"UptimeMonitor/domain/services/filters"
+	"UptimeMonitor/serviceProviders"
 	"strconv"
 )
 
@@ -25,7 +25,7 @@ func(c *ReportController) Get() {
 
 func getResponses(monId int) []entities.Response {
 	filter := filters.NewResponseFilter(monId, 100)
-	service := services.GetMonitoringResultService()
+	service := serviceProviders.GetMonitoringResultService()
 
 	return service.FindResponsesByFilter(filter)
 }

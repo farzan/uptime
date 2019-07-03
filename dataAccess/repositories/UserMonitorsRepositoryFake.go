@@ -9,7 +9,7 @@ type UserMonitorsRepositoryFake struct {
 }
 
 func NewUserMonitorsRepositoryFake() *UserMonitorsRepositoryFake {
-	monitors := NewAllMonitorsRepositoryFake().monitors
+	monitors := NewAllMonitorsRepositoryFake().monitors // Dont extract
 
 	return &UserMonitorsRepositoryFake{monitors: monitors}
 }
