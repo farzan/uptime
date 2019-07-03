@@ -32,13 +32,13 @@ func (s monitoringResultServiceFake) StoreMonitoringResponse(response monitor.Re
 }
 
 func (s monitoringResultServiceFake) StoreResponse(response entities.Response) {
-	s.responses[response.MonitorId] = append(s.responses[response.MonitorId], response)
+	s.responses[response.MonitorId] = append([]entities.Response{response}, s.responses[response.MonitorId]...)
 
+	// Debug code:
 	lengths := make(map[int]int)
 	for k, v := range s.responses {
 		lengths[k] = len(v)
 	}
-
 	debug.Printf("=====response stored; count: %v\n", lengths)
 }
 
