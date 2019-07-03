@@ -2,31 +2,29 @@ package serviceProviders
 
 import (
 	repositories2 "UptimeMonitor/dataAccess/repositories"
-	"UptimeMonitor/domain/contracts/repositories"
-	serviceContracts "UptimeMonitor/domain/contracts/services"
-	"UptimeMonitor/domain/services"
+	"UptimeMonitor/domain"
 )
 
 var (
-	monitoringResultService serviceContracts.MonitoringResultService
-	allMonitorsRepository repositories.AllMonitorsRepository
-	userMonitorsRepository repositories.UserMonitorsRepository
+	monitoringResultService domain.MonitoringResultServiceInterface
+	allMonitorsRepository   repositories2.AllMonitorsRepositoryInterface
+	userMonitorsRepository  repositories2.UserMonitorsRepositoryInterface
 )
 
 func init() {
-	monitoringResultService = services.NewMonitoringResultsServiceFake()
-	allMonitorsRepository = repositories2.NewAllMonitorsRepositoryFake()
-	userMonitorsRepository = repositories2.NewUserMonitorsRepositoryFake()
+	monitoringResultService = domain.NewMonitoringResultsServiceFake()
+	allMonitorsRepository = domain.NewAllMonitorsRepositoryFake()
+	userMonitorsRepository = repositories2.NewUserMonitorsRepositoryFake(0) // todo refactor
 }
 
-func GetMonitoringResultService() serviceContracts.MonitoringResultService {
+func GetMonitoringResultService() domain.MonitoringResultServiceInterface {
 	return monitoringResultService
 }
 
-func GetAllMonitorsRepository() repositories.AllMonitorsRepository {
+func GetAllMonitorsRepository() repositories2.AllMonitorsRepositoryInterface {
 	return allMonitorsRepository
 }
 
-func GetUserMonitorsRepository() repositories.UserMonitorsRepository {
+func GetUserMonitorsRepository() repositories2.UserMonitorsRepositoryInterface {
 	return userMonitorsRepository
 }

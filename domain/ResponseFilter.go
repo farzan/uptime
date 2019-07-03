@@ -1,4 +1,4 @@
-package filters
+package domain
 
 type ResponseFilter interface {
 	GetMonitorId() int

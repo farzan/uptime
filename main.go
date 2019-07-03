@@ -1,14 +1,14 @@
 package main
 
 import (
-	"UptimeMonitor/domain/monitoring"
+	"UptimeMonitor/domain"
 	_ "UptimeMonitor/routers"
 	"github.com/astaxie/beego"
 )
 
 func main() {
 	// Running monitoring goroutines
-	monitoring.Run()
+	domain.Run()
 
 	beego.Run()
 }

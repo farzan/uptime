@@ -1,9 +1,7 @@
-package worker
+package domain
 
 import (
-	domainContracts "UptimeMonitor/domain/contracts/services"
-	"UptimeMonitor/domain/services"
-	"UptimeMonitor/domain/types/monitor"
+	"UptimeMonitor/domain/observers/response"
 	"math"
 	"time"
 )
@@ -11,20 +9,20 @@ import (
 type Worker interface {
 	Start()
 	Stop()
-	AttachResponseObserver(observer domainContracts.ResponseObserver)
+	AttachResponseObserver(observer response.ResponseObserver)
 }
 
 type worker struct {
-	monitor    		monitor.Monitor
-	ResponseCh 		chan monitor.Response
-	stopCh     		chan bool
-	respObservers	[]domainContracts.ResponseObserver
+	monitor       Monitor
+	ResponseCh    chan Response
+	stopCh        chan bool
+	respObservers []response.ResponseObserver
 }
 
-func NewWorker(mon monitor.Monitor) Worker {
+func NewWorker(mon Monitor) Worker {
 	return &worker{
 		monitor:    mon,
-		ResponseCh: make(chan monitor.Response),
+		ResponseCh: make(chan Response),
 		stopCh:     make(chan bool),
 	}
 }
@@ -41,7 +39,7 @@ func (w worker) Start() {
 	}
 }
 
-func getDelay(response monitor.Response) time.Duration {
+func getDelay(response Response) time.Duration {
 	requestDuration := response.Duration()
 	delay := time.Duration(response.Request.Monitor.Interval) * time.Second - requestDuration
 	normalizedDelay := time.Duration(math.Max(0, float64(delay)))
@@ -50,12 +48,12 @@ func getDelay(response monitor.Response) time.Duration {
 }
 
 func sendRequest(worker worker) {
-	request := monitor.Request{Monitor: worker.monitor}
+	request := Request{Monitor: worker.monitor}
 
 	worker.ResponseCh <- getResponse(request)
 }
 
-func waitForResponse(worker worker) monitor.Response {
+func waitForResponse(worker worker) Response {
 	for {
 		select {
 		case response := <- worker.ResponseCh:
@@ -67,23 +65,23 @@ func waitForResponse(worker worker) monitor.Response {
 	}
 }
 
-func getResponse(request monitor.Request) monitor.Response {
+func getResponse(request Request) Response {
 	return getHttpService().Process(request)
 }
 
-func getHttpService() domainContracts.HttpService {
-	return services.HttpServiceFake{}
+func getHttpService() HttpServiceInterface {
+	return HttpServiceFake{}
 }
 
 func (w worker) Stop() {
 
 }
 
-func (w *worker) AttachResponseObserver(observer domainContracts.ResponseObserver) {
+func (w *worker) AttachResponseObserver(observer response.ResponseObserver) {
 	w.respObservers = append(w.respObservers, observer)
 }
 
-func (w worker) notifyResponseObservers(response monitor.Response) {
+func (w worker) notifyResponseObservers(response Response) {
 	for _, observer := range w.respObservers {
 		observer.Notify(response)
 	}

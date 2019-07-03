@@ -1,21 +1,15 @@
 package response
 
 import (
-	serviceContracts "UptimeMonitor/domain/contracts/services"
-	"UptimeMonitor/domain/types/monitor"
-	"UptimeMonitor/serviceProviders"
+	"UptimeMonitor/domain"
 )
 
-var service serviceContracts.MonitoringResultService
-
-func init() {
-	service = serviceProviders.GetMonitoringResultService()
-}
+var service = domain.NewMonitoringResultsServiceFake()
 
 type Database struct {
 
 }
 
-func (d Database) Notify(response monitor.Response) {
+func (d Database) Notify(response domain.Response) {
 	service.StoreMonitoringResponse(response)
 }

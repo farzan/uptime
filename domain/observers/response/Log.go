@@ -1,7 +1,7 @@
 package response
 
 import (
-	"UptimeMonitor/domain/types/monitor"
+	"UptimeMonitor/domain"
 	"github.com/astaxie/beego/logs"
 	"time"
 )
@@ -17,7 +17,7 @@ type Log struct {
 
 }
 
-func (l Log) Notify(response monitor.Response) {
+func (l Log) Notify(response domain.Response) {
 	log.Info("Timestamp: %v, Monitor Id: %v, Status: %v, Response time: %v",
 		response.Start.Format(time.RFC3339),
 		response.Request.Monitor.Id,

@@ -1,7 +1,6 @@
-package services
+package domain
 
 import (
-	"UptimeMonitor/domain/types/monitor"
 	"math/rand"
 	"time"
 )
@@ -16,7 +15,7 @@ type HttpServiceFake struct {
 
 }
 
-func (s HttpServiceFake) Process(request monitor.Request) monitor.Response {
+func (s HttpServiceFake) Process(request Request) Response {
 	startTime := time.Now()
 	delayInMilliseconds := minDelay + rand.Intn(maxDelay-minDelay)
 	//debug.Printf("[%v] Request will take %v ms\n", request.Monitor.Id, delayInMilliseconds)
@@ -26,14 +25,14 @@ func (s HttpServiceFake) Process(request monitor.Request) monitor.Response {
 	isOk := rand.Intn(8) > 0
 
 	if isOk {
-		return monitor.Response{
+		return Response{
 			Request:    request,
 			Start:      startTime,
 			End:        endTime,
 			StatusCode: 200,
 		}
 	} else {
-		return monitor.Response{
+		return Response{
 			Request:    request,
 			Start:      startTime,
 			End:        endTime,

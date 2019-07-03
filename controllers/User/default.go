@@ -2,7 +2,7 @@ package User
 
 import (
 	"UptimeMonitor/controllers"
-	"UptimeMonitor/domain/types"
+	"UptimeMonitor/domain"
 	"UptimeMonitor/serviceProviders"
 )
 
@@ -23,9 +23,9 @@ func getMonitors() interface{} {
 	return serviceProviders.GetUserMonitorsRepository().All()
 }
 
-func getUser() types.User {
+func getUser() domain.User {
 	// @todo Fake
-	user := types.User{
+	user := domain.User{
 		Id:    1,
 		Email: "farzan.b@gmail.com",
 		Name:  "Farzan",

@@ -1,30 +1,27 @@
-package monitoring
+package domain
 
 import (
 	"UptimeMonitor/domain/observers/response"
-	"UptimeMonitor/domain/types/monitor"
-	workerModel "UptimeMonitor/domain/types/monitor/worker"
-	"UptimeMonitor/serviceProviders"
 )
 
 func Run() {
-	repository := serviceProviders.GetAllMonitorsRepository()
-	monitors := repository.All()
+	// todo use a service provider
+	monitors := GetMonitorService().GetAll()
 
 	for _, mon := range monitors {
 		startWorker(mon)
 	}
 }
 
-func startWorker(mon monitor.Monitor) {
+func startWorker(mon Monitor) {
 	//debug.Printf("[%v] Starting...\n", mon.Id)
 	worker := createWorker(mon)
 	go worker.Start()
 	//debug.Printf("[%v] Started\n", mon.Id)
 }
 
-func createWorker(mon monitor.Monitor) workerModel.Worker {
-	worker := workerModel.NewWorker(mon)
+func createWorker(mon Monitor) Worker {
+	worker := NewWorker(mon)
 
 	//worker.AttachResponseObserver(response.Terminal{})
 	worker.AttachResponseObserver(response.Log{})
