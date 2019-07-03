@@ -18,26 +18,20 @@ type Response struct {
 }
 
 func (r Response) IsOk() bool {
-	return int(r.Duration() * time.Second) < r.getMonitor().Thresholds.GetOk()
+	return r.Duration() < r.getMonitor().Thresholds.GetWarning()
 }
 
 func (r Response) IsWarning() bool {
-	dur := int(r.Duration() * time.Second)
-	return dur >= r.getMonitor().Thresholds.GetOk() &&
-		dur < r.getMonitor().Thresholds.GetWarning()
+	return r.Duration() >= r.getMonitor().Thresholds.GetWarning() &&
+		r.Duration() < r.getMonitor().Thresholds.GetCritical()
 }
 
 func (r Response) IsCritical() bool {
-	dur := int(r.Duration() * time.Second)
-	return dur >= r.getMonitor().Thresholds.GetCritical()
+	return r.Duration() >= r.getMonitor().Thresholds.GetCritical()
 }
 
 func (r Response) Duration() time.Duration {
 	return r.End.Sub(r.Start)
-}
-
-func (r Response) DurationInSeconds() float64 {
-	return float64(r.End.Sub(r.Start) / time.Second)
 }
 
 func (r Response) getMonitor() monitor.Monitor {
