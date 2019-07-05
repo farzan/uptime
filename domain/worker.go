@@ -1,7 +1,6 @@
 package domain
 
 import (
-	"UptimeMonitor/domain/observers/response"
 	"math"
 	"time"
 )
@@ -9,14 +8,14 @@ import (
 type Worker interface {
 	Start()
 	Stop()
-	AttachResponseObserver(observer response.ResponseObserver)
+	AttachResponseObserver(observer ResponseObserver)
 }
 
 type worker struct {
 	monitor       Monitor
 	ResponseCh    chan Response
 	stopCh        chan bool
-	respObservers []response.ResponseObserver
+	respObservers []ResponseObserver
 }
 
 func NewWorker(mon Monitor) Worker {
@@ -77,7 +76,7 @@ func (w worker) Stop() {
 
 }
 
-func (w *worker) AttachResponseObserver(observer response.ResponseObserver) {
+func (w *worker) AttachResponseObserver(observer ResponseObserver) {
 	w.respObservers = append(w.respObservers, observer)
 }
 

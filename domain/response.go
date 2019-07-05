@@ -19,16 +19,16 @@ func (r Response) Duration() time.Duration {
 }
 
 func (r Response) IsOk() bool {
-	return r.Duration() < r.Request.Monitor.Thresholds.GetWarning()
+	return r.Duration() < r.getMonitor().Thresholds.GetWarning()
 }
 
 func (r Response) IsWarning() bool {
-	return r.Duration() >= r.Request.Monitor.Thresholds.GetWarning() &&
-		r.Duration() < r.Request.Monitor.Thresholds.GetCritical()
+	return r.Duration() >= r.getMonitor().Thresholds.GetWarning() &&
+		r.Duration() < r.getMonitor().Thresholds.GetCritical()
 }
 
 func (r Response) IsCritical() bool {
-	return r.Duration() >= r.Request.Monitor.Thresholds.GetCritical()
+	return r.Duration() >= r.getMonitor().Thresholds.GetCritical()
 }
 
 func (r Response) IsError() bool {

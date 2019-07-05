@@ -1,15 +1,14 @@
-package response
+package domain
 
 import (
-	"UptimeMonitor/domain"
 	debug "UptimeMonitor/utils"
 )
 
-type Terminal struct {
+type TerminalObserver struct {
 
 }
 
-func (t Terminal) Notify(response domain.Response) {
+func (t TerminalObserver) Notify(response Response) {
 	debug.Printf("[%v] Response received; Dur: %v\n",
 		response.Request.Monitor.Id,
 		response.End.Sub(response.Start),

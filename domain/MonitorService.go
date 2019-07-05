@@ -1,15 +1,11 @@
 package domain
 
-import (
-	repositories2 "UptimeMonitor/dataAccess/repositories"
-)
-
 type monitorService struct {
 
 }
 
 var monitorServiceInstance MonitorServiceInterface
-var allMonitorsRepository repositories2.AllMonitorsRepositoryInterface
+//var allMonitorsRepository AllMonitorsRepositoryInterface
 
 func init() {
 	monitorServiceInstance = monitorService{}
@@ -29,6 +25,6 @@ func (m monitorService) GetAll() []Monitor {
 }
 
 func (m monitorService) GetUserMonitors(userId int) []Monitor {
-	repo := repositories2.NewUserMonitorsRepositoryFake(userId)
+	repo := NewUserMonitorsRepositoryFake(userId)
 	return repo.All()
 }

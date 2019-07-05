@@ -3,7 +3,6 @@ package User
 import (
 	"UptimeMonitor/controllers"
 	"UptimeMonitor/domain"
-	"UptimeMonitor/serviceProviders"
 )
 
 type DefaultController struct {
@@ -20,7 +19,7 @@ func (c *DefaultController) Get() {
 
 func getMonitors() interface{} {
 	// @todo Fake
-	return serviceProviders.GetUserMonitorsRepository().All()
+	return domain.GetUserMonitorsRepository().All()
 }
 
 func getUser() domain.User {

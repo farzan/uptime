@@ -1,24 +1,20 @@
-package repositories
-
-import (
-	"UptimeMonitor/domain"
-)
+package domain
 
 type UserMonitorsRepositoryFake struct {
-	monitors []domain.Monitor
+	monitors []Monitor
 }
 
 func NewUserMonitorsRepositoryFake(userId int) *UserMonitorsRepositoryFake {
-	monitors := domain.NewAllMonitorsRepositoryFake().monitors // Dont extract
+	monitors := NewAllMonitorsRepositoryFake().monitors // Dont extract
 
 	return &UserMonitorsRepositoryFake{monitors: monitors}
 }
 
-func (m UserMonitorsRepositoryFake) All() []domain.Monitor {
+func (m UserMonitorsRepositoryFake) All() []Monitor {
 	return m.monitors
 }
 
-func (m UserMonitorsRepositoryFake) Get(id int) domain.Monitor {
+func (m UserMonitorsRepositoryFake) Get(id int) Monitor {
 	return m.monitors[id]
 }
 
@@ -26,11 +22,11 @@ func (m UserMonitorsRepositoryFake) Count() int {
 	return len(m.monitors)
 }
 
-func (m UserMonitorsRepositoryFake) Add(monitor domain.Monitor) {
+func (m UserMonitorsRepositoryFake) Add(monitor Monitor) {
 	m.monitors = append(m.monitors, monitor)
 }
 
-func (m UserMonitorsRepositoryFake) Update(monitor domain.Monitor) {
+func (m UserMonitorsRepositoryFake) Update(monitor Monitor) {
 	for i, mon := range m.monitors {
 		if monitor.Id == mon.Id {
 			m.monitors[i] = monitor
@@ -45,7 +41,7 @@ func (m UserMonitorsRepositoryFake) Update(monitor domain.Monitor) {
 func (m UserMonitorsRepositoryFake) Delete(idOrModel interface{}) {
 	if id, ok := idOrModel.(int); ok {
 		m.deleteById(id)
-	} else if model, ok := idOrModel.(domain.Monitor); ok {
+	} else if model, ok := idOrModel.(Monitor); ok {
 		m.deleteById(model.Id)
 	}
 

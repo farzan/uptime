@@ -1,9 +1,5 @@
 package domain
 
-import (
-	"UptimeMonitor/domain/observers/response"
-)
-
 func Run() {
 	// todo use a service provider
 	monitors := GetMonitorService().GetAll()
@@ -23,9 +19,9 @@ func startWorker(mon Monitor) {
 func createWorker(mon Monitor) Worker {
 	worker := NewWorker(mon)
 
-	//worker.AttachResponseObserver(response.Terminal{})
-	worker.AttachResponseObserver(response.Log{})
-	worker.AttachResponseObserver(response.Database{})
+	worker.AttachResponseObserver(TerminalObserver{})
+	worker.AttachResponseObserver(LogObserver{})
+	worker.AttachResponseObserver(DatabaseObserver{})
 
 	return worker
 }

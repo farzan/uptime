@@ -1,7 +1,6 @@
-package response
+package domain
 
 import (
-	"UptimeMonitor/domain"
 	"github.com/astaxie/beego/logs"
 	"time"
 )
@@ -13,11 +12,11 @@ func init() {
 	log.SetLogger(logs.AdapterFile, `{"filename": "logs/monitoring_result.log"}`)
 }
 
-type Log struct {
+type LogObserver struct {
 
 }
 
-func (l Log) Notify(response domain.Response) {
+func (l LogObserver) Notify(response Response) {
 	log.Info("Timestamp: %v, Monitor Id: %v, Status: %v, Response time: %v",
 		response.Start.Format(time.RFC3339),
 		response.Request.Monitor.Id,
