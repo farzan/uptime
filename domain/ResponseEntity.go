@@ -1,15 +1,14 @@
 package domain
 
-import (
-	"time"
-)
-
 type ResponseEntity struct {
 	Id int
 	MonitorId int
-	Start time.Time
-	End time.Time
+	Start string
+	End string
 	StatusCode int
 	Error string
+	ThresholdOk int
+	ThresholdWarning int
+	ThresholdCritical int
 }
 

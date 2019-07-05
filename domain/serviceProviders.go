@@ -4,6 +4,7 @@ var (
 	monitoringResultService MonitoringResultServiceInterface
 	allMonitorsRepository   AllMonitorsRepositoryInterface
 	userMonitorsRepository  UserMonitorsRepositoryInterface
+	responsesRepository		MonitorResponsesRepositoryInterface
 )
 
 func init() {
@@ -12,7 +13,7 @@ func init() {
 
 func GetMonitoringResultService() MonitoringResultServiceInterface {
 	if monitoringResultService == nil {
-		monitoringResultService = NewMonitoringResultsServiceFake()
+		monitoringResultService = NewMonitoringResultsService()
 	}
 	return monitoringResultService
 }
@@ -26,4 +27,11 @@ func GetAllMonitorsRepository() AllMonitorsRepositoryInterface {
 
 func GetUserMonitorsRepository() UserMonitorsRepositoryInterface {
 	return userMonitorsRepository
+}
+
+func GetMonitoringResponsesRepository() MonitorResponsesRepositoryInterface {
+	if responsesRepository == nil {
+		responsesRepository = NewMonitoringResponsesRepositoryFake()
+	}
+	return responsesRepository;
 }
