@@ -25,7 +25,7 @@ func GetAllMonitorsRepository() AllMonitorsRepositoryInterface {
 	return allMonitorsRepository
 }
 
-func GetUserMonitorsRepository() UserMonitorsRepositoryInterface {
+func GetUserMonitorsRepository(userId int) UserMonitorsRepositoryInterface {
 	return userMonitorsRepository
 }
 

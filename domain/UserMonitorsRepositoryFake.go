@@ -19,7 +19,7 @@ func (m UserMonitorsRepositoryFake) Get(id int) Monitor {
 }
 
 func (m UserMonitorsRepositoryFake) Count() int {
-	return len(m.monitors)
+	return len(GetAllMonitorsRepository().All())
 }
 
 func (m UserMonitorsRepositoryFake) Add(monitor Monitor) {
@@ -56,4 +56,14 @@ func (m UserMonitorsRepositoryFake) deleteById(id int) {
 			return
 		}
 	}
+}
+
+func (m UserMonitorsRepositoryFake) UrlIsUnique(url string) bool {
+	for _, mon := range GetAllMonitorsRepository().All() {
+		if mon.Url == url {
+			return false
+		}
+	}
+
+	return true
 }

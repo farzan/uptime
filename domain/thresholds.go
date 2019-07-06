@@ -2,6 +2,10 @@ package domain
 
 import "time"
 
+const OK = 1
+const WARNING = 3
+const CRITICAL = 7
+
 type Thresholds interface {
 	GetOk() time.Duration
 	GetWarning() time.Duration
@@ -24,9 +28,9 @@ func NewThreshold(ok int, warning int, critical int) Thresholds {
 
 func NewDefaultThreshold() Thresholds {
 	return thresholds{
-		time.Duration(1) * time.Second,
-		time.Duration(3) * time.Second,
-		time.Duration(7) * time.Second,
+		time.Duration(OK) * time.Second,
+		time.Duration(WARNING) * time.Second,
+		time.Duration(CRITICAL) * time.Second,
 	}
 }
 

@@ -38,7 +38,7 @@
             {{end}}
         </ol>
         <div>
-            <a class="btn btn-dark" href="#">Add new monitor</a>
+            <a class="btn btn-dark" href="/user/monitor/add">Add new monitor</a>
         </div>
     </div>
 </div>

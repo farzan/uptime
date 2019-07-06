@@ -1,3 +1,5 @@
+<a class="btn btn-secondary mb-5" href="/user">Back</a>
+
 <h3 class=" mb-3">Count: {{.count}}</h3>
 
 <div class="row">

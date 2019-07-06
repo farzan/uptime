@@ -7,8 +7,5 @@ type ResponseEntity struct {
 	End string
 	StatusCode int
 	Error string
-	ThresholdOk int
-	ThresholdWarning int
-	ThresholdCritical int
 }
 

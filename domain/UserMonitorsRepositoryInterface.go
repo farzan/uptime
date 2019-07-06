@@ -7,4 +7,5 @@ type UserMonitorsRepositoryInterface interface {
 	Add(monitor Monitor)
 	Update(monitor Monitor)
 	Delete(idOrModel interface{})
+	UrlIsUnique(url string) bool
 }

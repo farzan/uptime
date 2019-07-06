@@ -2,16 +2,16 @@ package domain
 
 func Run() {
 	// todo use a service provider
-	monitors := GetMonitorService().GetAll()
+	monitors := GetMonitorService().FindAll()
 
 	for _, mon := range monitors {
-		startWorker(mon)
+		StartWorker(&mon)
 	}
 }
 
-func startWorker(mon Monitor) {
+func StartWorker(mon *Monitor) {
 	//debug.Printf("[%v] Starting...\n", mon.Id)
-	worker := createWorker(mon)
+	worker := createWorker(*mon)
 	go worker.Start()
 	//debug.Printf("[%v] Started\n", mon.Id)
 }

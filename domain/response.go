@@ -36,6 +36,6 @@ func (r Response) IsError() bool {
 }
 
 func (r Response) getMonitor() Monitor {
-	//todo Refactor
-	return GetMonitorService().Get(r.MonitorId)
+	monitor, _ := GetMonitorService().Find(r.MonitorId)
+	return monitor
 }

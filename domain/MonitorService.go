@@ -1,30 +1,43 @@
 package domain
 
+const MaxUserMonitors = 5
+
 type monitorService struct {
 
 }
 
-var monitorServiceInstance MonitorServiceInterface
-//var allMonitorsRepository AllMonitorsRepositoryInterface
-
-func init() {
-	monitorServiceInstance = monitorService{}
-	allMonitorsRepository = NewAllMonitorsRepositoryFake()
-}
-
 func GetMonitorService() MonitorServiceInterface {
-	return monitorServiceInstance
+	return monitorService{}
 }
 
-func (m monitorService) Get(monitorId int) Monitor {
-	return allMonitorsRepository.Get(monitorId)
+func (m monitorService) Find(monitorId int) (Monitor, error) {
+	return GetAllMonitorsRepository().Get(monitorId)
 }
 
-func (m monitorService) GetAll() []Monitor {
-	return allMonitorsRepository.All()
+func (m monitorService) FindAll() []Monitor {
+	return GetAllMonitorsRepository().All()
 }
 
-func (m monitorService) GetUserMonitors(userId int) []Monitor {
-	repo := NewUserMonitorsRepositoryFake(userId)
-	return repo.All()
+func (m monitorService) FindUserMonitors(userId int) []Monitor {
+	return GetUserMonitorsRepository(userId).All()
+}
+
+func (m monitorService) Add(monitor *Monitor) {
+	GetAllMonitorsRepository().Add(monitor)
+}
+
+func (m monitorService) Update(monitor *Monitor) error {
+	return GetAllMonitorsRepository().Update(monitor)
+}
+
+func (m monitorService) Delete(monitorId int) error {
+	return GetAllMonitorsRepository().Delete(monitorId)
+}
+
+func (m monitorService) UrlIsUnique(userId int, url string) bool {
+	return GetUserMonitorsRepository(userId).UrlIsUnique(url)
+}
+
+func (m monitorService) UserHasReachedMax(userId int) bool {
+	return GetUserMonitorsRepository(userId).Count() <= MaxUserMonitors
 }

@@ -13,6 +13,14 @@
         <div class="container">
             <div class="row">
                 <div class="col">
+                    <div class="alert alert-danger">
+                        {{.flash.error}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col mb-5">
                     {{.LayoutContent}}
                 </div>
             </div>

@@ -18,8 +18,12 @@ func (c *DefaultController) Get() {
 }
 
 func getMonitors() interface{} {
+	return domain.GetMonitorService().FindAll()
+}
+
+func getUserId() int {
 	// @todo Fake
-	return domain.GetUserMonitorsRepository().All()
+	return 0;
 }
 
 func getUser() domain.User {
