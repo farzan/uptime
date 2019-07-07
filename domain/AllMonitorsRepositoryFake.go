@@ -4,6 +4,7 @@ import debug "UptimeMonitor/utils"
 
 type AllMonitorsRepositoryFake struct {
 	monitors []Monitor
+	index int
 }
 
 func (m *AllMonitorsRepositoryFake) All() []Monitor {
@@ -28,24 +29,21 @@ func NewAllMonitorsRepositoryFake() *AllMonitorsRepositoryFake {
 		{4, 1, "My site 4", GET, "http://mysite4.com", 60, NewDefaultThreshold()},
 	}
 
-	return &AllMonitorsRepositoryFake{monitors: monitors}
+	return &AllMonitorsRepositoryFake{
+		monitors: monitors,
+		index: len(monitors),
+	}
 }
 
 func (m *AllMonitorsRepositoryFake) Add(monitor *Monitor) {
 	monitor.Id = m.getNewId()
 	m.monitors = append(m.monitors, *monitor)
-	debug.Printf("len:%v\n", len(m.monitors))
 }
 
 func (m *AllMonitorsRepositoryFake) getNewId() int {
-	id := 0
-	for _, mon := range m.monitors {
-		if mon.Id > id {
-			id = mon.Id
-		}
-	}
+	m.index++
 
-	return id + 1
+	return m.index
 }
 
 func(m *AllMonitorsRepositoryFake) Update(monitor *Monitor) error {
