@@ -7,7 +7,11 @@
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
             <a class="navbar-brand" href="#">Uptime Monitor</a>
-
+            {{if .isLoggedIn}}
+            <form class="form-inline my-2 my-lg-0" method="post" action="/user/logout">
+                <button class="btn btn-dark my-2 my-sm-0" type="submit">Logout</button>
+            </form>
+            {{end}}
         </nav>
 
         <div class="container">

@@ -6,6 +6,8 @@ var (
 	userMonitorsRepository  UserMonitorsRepositoryInterface
 	responsesRepository     MonitorResponsesRepositoryInterface
 	workerServiceInstance	WorkerServiceInterface
+	userServiceInstance		UserServiceInterface
+	userRepositoryInstance	UserRepositoryInterface
 )
 
 func init() {
@@ -42,4 +44,20 @@ func GetWorkerService() WorkerServiceInterface {
 		workerServiceInstance = NewWorkerService()
 	}
 	return  workerServiceInstance
+}
+
+func GetUserService() UserServiceInterface {
+	if userServiceInstance == nil {
+		userServiceInstance = NewUserService()
+	}
+
+	return userServiceInstance
+}
+
+func GetUserRepository() UserRepositoryInterface {
+	if userRepositoryInstance == nil {
+		userRepositoryInstance = NewUserRepositoryFake()
+	}
+
+	return userRepositoryInstance
 }

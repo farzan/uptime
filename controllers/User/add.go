@@ -13,8 +13,6 @@ type AddMonitorController struct {
 }
 
 func (c *AddMonitorController) Get() {
-	c.Layout = "layout/main.tpl"
-
 	if !domain.GetMonitorService().UserHasReachedMax(c.getUserId()) {
 		c.TplName = "user/monitor/no_more_add.tpl"
 		return
@@ -29,7 +27,6 @@ func (c *AddMonitorController) Get() {
 }
 
 func (c *AddMonitorController) Post() {
-	c.Layout = "layout/main.tpl"
 	c.TplName = "user/monitor/add.tpl"
 
 	ok, _ := c.GetInt("ok", domain.OK)

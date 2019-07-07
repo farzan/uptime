@@ -12,7 +12,6 @@ type DeleteMonitorController struct {
 }
 
 func (c *DeleteMonitorController) Get() {
-	c.Layout = "layout/main.tpl"
 	c.TplName = "user/monitor/delete.tpl"
 
 	monId, _ := strconv.Atoi(c.Ctx.Input.Param(":id"))
