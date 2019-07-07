@@ -3,6 +3,7 @@ package User
 import (
 	"UptimeMonitor/controllers"
 	"UptimeMonitor/domain"
+	"github.com/astaxie/beego"
 	"strconv"
 )
 
@@ -23,8 +24,16 @@ func (c *DeleteMonitorController) Get() {
 func (c *DeleteMonitorController) Post() {
 	monId, _ := strconv.Atoi(c.Ctx.Input.Param(":id"))
 
-	domain.GetWorkerService().Stop(monId)
-	domain.GetMonitorService().Delete(monId)
+	go c.deleteMonitor(monId)
+
+	flash := beego.NewFlash()
+	flash.Error("Monitor schedules for deletion")
+	flash.Store(&c.Controller)
 
 	c.Redirect("/user", 302)
+}
+
+func (c *DeleteMonitorController) deleteMonitor(monId int) {
+	domain.GetWorkerService().Stop(monId)
+	domain.GetMonitorService().Delete(monId)
 }
