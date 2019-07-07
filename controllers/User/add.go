@@ -56,7 +56,7 @@ func (c *AddMonitorController) Post() {
 	}
 
 	domain.GetMonitorService().Add(&monitor)
-	domain.StartWorker(&monitor)
+	domain.GetWorkerService().Start(&monitor)
 
 	c.Redirect("/user", 302)
 }

@@ -4,7 +4,8 @@ var (
 	monitoringResultService MonitoringResultServiceInterface
 	allMonitorsRepository   AllMonitorsRepositoryInterface
 	userMonitorsRepository  UserMonitorsRepositoryInterface
-	responsesRepository		MonitorResponsesRepositoryInterface
+	responsesRepository     MonitorResponsesRepositoryInterface
+	workerServiceInstance	WorkerServiceInterface
 )
 
 func init() {
@@ -34,4 +35,11 @@ func GetMonitoringResponsesRepository() MonitorResponsesRepositoryInterface {
 		responsesRepository = NewMonitoringResponsesRepositoryFake()
 	}
 	return responsesRepository;
+}
+
+func GetWorkerService() WorkerServiceInterface {
+	if workerServiceInstance == nil {
+		workerServiceInstance = NewWorkerService()
+	}
+	return  workerServiceInstance
 }

@@ -12,7 +12,7 @@ type ReportController struct {
 
 func(c *ReportController) Get() {
 	c.Layout = "layout/main.tpl"
-	c.TplName = "user/report.tpl"
+	c.TplName = "user/monitor/report.tpl"
 
 	monId, _ := strconv.Atoi(c.Ctx.Input.Param(":id"))
 	responses := getResponses(monId)

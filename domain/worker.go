@@ -32,6 +32,12 @@ func (w worker) Start() {
 
 		response := waitForResponse(w)
 
+		select {
+		case <- w.stopCh:
+			return
+		default:
+		}
+
 		delay := getDelay(response)
 		//debug.Printf("[%v] Wait %v\n", w.monitor.Id, delay)
 		time.Sleep(delay)
@@ -58,8 +64,8 @@ func waitForResponse(worker worker) Response {
 		case response := <- worker.ResponseCh:
 			worker.notifyResponseObservers(response)
 			return response
-		default: <- time.After(500 * time.Millisecond)
-			//debug.Print(".")
+		//default: <- time.After(500 * time.Millisecond)
+		//	debug.Print(".")
 		}
 	}
 }
@@ -73,7 +79,7 @@ func getHttpService() HttpServiceInterface {
 }
 
 func (w worker) Stop() {
-
+	w.stopCh <- true
 }
 
 func (w *worker) AttachResponseObserver(observer ResponseObserver) {

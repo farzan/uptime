@@ -5,4 +5,5 @@ type MonitoringResultServiceInterface interface {
 	StoreResponseEntity(response ResponseEntity)
 	FindResponseById(id int) (Response, error)
 	FindResponsesByFilter(filter ResponseFilter) []Response
+	DeleteAll(monitorId int)
 }

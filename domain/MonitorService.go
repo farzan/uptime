@@ -31,7 +31,10 @@ func (m monitorService) Update(monitor *Monitor) error {
 }
 
 func (m monitorService) Delete(monitorId int) error {
-	return GetAllMonitorsRepository().Delete(monitorId)
+	err := GetAllMonitorsRepository().Delete(monitorId)
+	GetMonitoringResultService().DeleteAll(monitorId)
+
+	return err
 }
 
 func (m monitorService) UrlIsUnique(userId int, url string) bool {

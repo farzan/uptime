@@ -6,14 +6,14 @@ func NewMonitoringResponsesRepositoryFake() MonitorResponsesRepositoryInterface 
 	s := monitorResponseRepositoryFake{}
 	s.responses = make(map[int] []ResponseEntity)
 
-	return s
+	return &s
 }
 
 type monitorResponseRepositoryFake struct {
 	responses map[int] []ResponseEntity
 }
 
-func (r monitorResponseRepositoryFake) Store(response ResponseEntity) {
+func (r *monitorResponseRepositoryFake) Store(response ResponseEntity) {
 	r.responses[response.MonitorId] = append([]ResponseEntity{response}, r.responses[response.MonitorId]...)
 
 	// Debug code:
@@ -21,7 +21,7 @@ func (r monitorResponseRepositoryFake) Store(response ResponseEntity) {
 	for k, v := range r.responses {
 		lengths[k] = len(v)
 	}
-	debug.Printf("=====response stored; count: %v\n", lengths)
+	debug.Printf("===> response stored; count: %v\n", lengths)
 }
 
 func (r monitorResponseRepositoryFake) Find(id int) (ResponseEntity, error) {
@@ -40,4 +40,8 @@ func (r monitorResponseRepositoryFake) FindByFilter(filter ResponseFilter) []Res
 	}
 
 	return set[pos:]
+}
+
+func (r monitorResponseRepositoryFake) DeleteAll(monitorId int) {
+	delete(r.responses, monitorId)
 }

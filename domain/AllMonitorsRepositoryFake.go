@@ -6,11 +6,11 @@ type AllMonitorsRepositoryFake struct {
 	monitors []Monitor
 }
 
-func (m AllMonitorsRepositoryFake) All() []Monitor {
+func (m *AllMonitorsRepositoryFake) All() []Monitor {
 	return m.monitors
 }
 
-func (m AllMonitorsRepositoryFake) Get(monitorId int) (Monitor, error) {
+func (m *AllMonitorsRepositoryFake) Get(monitorId int) (Monitor, error) {
 	for _, mon := range m.monitors {
 		if mon.Id == monitorId {
 			return mon, nil
@@ -48,15 +48,19 @@ func (m *AllMonitorsRepositoryFake) getNewId() int {
 	return id + 1
 }
 
-func(m AllMonitorsRepositoryFake) Update(monitor *Monitor) error {
+func(m *AllMonitorsRepositoryFake) Update(monitor *Monitor) error {
 	// todo
 	return errorString("Not found")
 }
 
-func (m AllMonitorsRepositoryFake) Delete(monitorId int) error {
+func (m *AllMonitorsRepositoryFake) Delete(monitorId int) error {
 	for i, mon := range m.monitors {
 		if mon.Id == monitorId {
-			m.monitors = append(m.monitors[:i], m.monitors[i+1:]...)
+			copy(m.monitors[i:], m.monitors[i + 1:])
+			m.monitors[len(m.monitors) - 1] = Monitor{Thresholds:NewDefaultThreshold()}
+			m.monitors = m.monitors[:(len(m.monitors) - 1)]
+
+			debug.Printf("Monitor deleted: %v\n", monitorId)
 			return nil
 		}
 	}

@@ -5,17 +5,14 @@ import (
 )
 
 func NewMonitoringResultsService() MonitoringResultServiceInterface {
-	s := MonitoringResultService{}
-	s.responses = make(map[int] []ResponseEntity)
-
-	return s
+	return &MonitoringResultService{}
 }
 
 type MonitoringResultService struct {
-	responses map[int] []ResponseEntity
+
 }
 
-func (s MonitoringResultService) StoreMonitoringResponse(response Response) {
+func (s *MonitoringResultService) StoreMonitoringResponse(response Response) {
 	responseEntity := ResponseEntity{
 		MonitorId: response.Request.Monitor.Id,
 		Start: response.Start.Format(time.RFC3339Nano),
@@ -27,7 +24,7 @@ func (s MonitoringResultService) StoreMonitoringResponse(response Response) {
 	s.StoreResponseEntity(responseEntity)
 }
 
-func (s MonitoringResultService) StoreResponseEntity(response ResponseEntity) {
+func (s *MonitoringResultService) StoreResponseEntity(response ResponseEntity) {
 	GetMonitoringResponsesRepository().Store(response)
 }
 
@@ -58,6 +55,10 @@ func (s MonitoringResultService) createResponse(responseEntity ResponseEntity) R
 		StatusCode: responseEntity.StatusCode,
 		Error: responseEntity.Error,
 	}
+}
+
+func (s *MonitoringResultService) DeleteAll(monitorId int) {
+	GetMonitoringResponsesRepository().DeleteAll(monitorId)
 }
 
 type errorString string
