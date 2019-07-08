@@ -1,4 +1,4 @@
-package User
+package monitor
 
 import (
 	"UptimeMonitor/controllers"

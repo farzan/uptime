@@ -1,4 +1,4 @@
-package User
+package monitor
 
 import (
 	"UptimeMonitor/controllers"
@@ -17,11 +17,15 @@ func (c *DefaultController) Get() {
 }
 
 func (c *DefaultController) getMonitors() interface{} {
-	return domain.GetMonitorService().FindAll()
+	return domain.GetMonitorService().FindUserMonitors(c.getUserId())
 }
 
 func (c *DefaultController) getUser() domain.User {
 	userId := c.GetSession("userId").(int)
 	user, _ := domain.GetUserService().Get(userId)
 	return user
+}
+
+func (c *DefaultController) getUserId() int {
+	return c.GetSession("userId").(int)
 }

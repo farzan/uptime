@@ -1,4 +1,4 @@
-package User
+package monitor
 
 import (
 	"UptimeMonitor/controllers"
@@ -13,7 +13,7 @@ type AddMonitorController struct {
 }
 
 func (c *AddMonitorController) Get() {
-	if !domain.GetMonitorService().UserHasReachedMax(c.getUserId()) {
+	if domain.GetMonitorService().UserHasReachedMax(c.getUserId()) {
 		c.TplName = "user/monitor/no_more_add.tpl"
 		return
 	}
@@ -59,8 +59,7 @@ func (c *AddMonitorController) Post() {
 }
 
 func (c *AddMonitorController) getUserId() int {
-	// todo
-	return 1
+	return c.GetSession("userId").(int)
 }
 
 func (c *AddMonitorController) isValid(monitor domain.Monitor) bool {

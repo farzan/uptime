@@ -3,6 +3,7 @@ package routers
 import (
 	"UptimeMonitor/controllers"
 	"UptimeMonitor/controllers/User"
+	"UptimeMonitor/controllers/monitor"
 	"github.com/astaxie/beego"
 )
 
@@ -17,4 +18,6 @@ func init() {
     beego.Router("/user/monitor/:id:int/report", &monitor.ReportController{})
     beego.Router("/user/monitor/add", &monitor.AddMonitorController{})
     beego.Router("/user/monitor/:id:int/delete", &monitor.DeleteMonitorController{})
+
+	beego.Router("/debug", &controllers.DebugController{})
 }

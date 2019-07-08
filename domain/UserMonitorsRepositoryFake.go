@@ -5,9 +5,21 @@ type UserMonitorsRepositoryFake struct {
 }
 
 func NewUserMonitorsRepositoryFake(userId int) *UserMonitorsRepositoryFake {
-	monitors := NewAllMonitorsRepositoryFake().monitors // Dont extract
+	monitors := getUserMonitors(userId)
 
 	return &UserMonitorsRepositoryFake{monitors: monitors}
+}
+
+func getUserMonitors(userId int) []Monitor {
+	monitors := GetAllMonitorsRepository().All()
+	userMons := []Monitor{}
+	for _, mon := range monitors {
+		if mon.UserId == userId {
+			userMons = append(userMons, mon)
+		}
+	}
+
+	return userMons
 }
 
 func (m UserMonitorsRepositoryFake) All() []Monitor {
@@ -19,7 +31,7 @@ func (m UserMonitorsRepositoryFake) Get(id int) Monitor {
 }
 
 func (m UserMonitorsRepositoryFake) Count() int {
-	return len(GetAllMonitorsRepository().All())
+	return len(m.monitors)
 }
 
 func (m UserMonitorsRepositoryFake) Add(monitor Monitor) {
@@ -59,7 +71,7 @@ func (m UserMonitorsRepositoryFake) deleteById(id int) {
 }
 
 func (m UserMonitorsRepositoryFake) UrlIsUnique(url string) bool {
-	for _, mon := range GetAllMonitorsRepository().All() {
+	for _, mon := range m.monitors {
 		if mon.Url == url {
 			return false
 		}

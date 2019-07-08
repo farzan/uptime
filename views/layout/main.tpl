@@ -15,6 +15,7 @@
         </nav>
 
         <div class="container">
+            {{if .flash.error}}
             <div class="row">
                 <div class="col">
                     <div class="alert alert-danger">
@@ -22,6 +23,7 @@
                     </div>
                 </div>
             </div>
+            {{end}}
 
             <div class="row">
                 <div class="col mb-5">

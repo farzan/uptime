@@ -13,9 +13,10 @@ type UserRepositoryInterface interface {
 }
 
 func NewUserRepositoryFake() UserRepositoryInterface {
-	hashedPassword, _ := bcrypt.GenerateFromPassword([]byte("123456"), 8)
+	hashedPassword, _ := bcrypt.GenerateFromPassword([]byte("123"), 8)
 	users := []User{
 		{1, "farzan.b@gmail.com", string(hashedPassword), "Farzan"},
+		{2, "f.behzadian@dunro.com", string(hashedPassword), "f.behzadian@dunro.com"},
 	}
 
 	return &userRepositoryFake{

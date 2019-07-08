@@ -26,7 +26,8 @@ func NewAllMonitorsRepositoryFake() *AllMonitorsRepositoryFake {
 		{1, 1, "My site 1", GET, "http://mysite1.com", 5, NewDefaultThreshold()},
 		{2, 1, "My site 2", GET, "http://mysite2.com", 10, NewDefaultThreshold()},
 		{3, 1, "My site 3", GET, "http://mysite3.com", 30, NewDefaultThreshold()},
-		{4, 1, "My site 4", GET, "http://mysite4.com", 60, NewDefaultThreshold()},
+		{4, 2, "My site 4", GET, "http://mysite4.com", 5, NewDefaultThreshold()},
+		{5, 2, "My site 5", GET, "http://mysite5.com", 10, NewDefaultThreshold()},
 	}
 
 	return &AllMonitorsRepositoryFake{
@@ -38,6 +39,7 @@ func NewAllMonitorsRepositoryFake() *AllMonitorsRepositoryFake {
 func (m *AllMonitorsRepositoryFake) Add(monitor *Monitor) {
 	monitor.Id = m.getNewId()
 	m.monitors = append(m.monitors, *monitor)
+	debug.Printf("~~ monitor added: %v\n", monitor)
 }
 
 func (m *AllMonitorsRepositoryFake) getNewId() int {

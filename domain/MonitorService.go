@@ -42,5 +42,5 @@ func (m monitorService) UrlIsUnique(userId int, url string) bool {
 }
 
 func (m monitorService) UserHasReachedMax(userId int) bool {
-	return GetUserMonitorsRepository(userId).Count() <= MaxUserMonitors
+	return GetUserMonitorsRepository(userId).Count() >= MaxUserMonitors
 }

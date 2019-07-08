@@ -3,16 +3,11 @@ package domain
 var (
 	monitoringResultService MonitoringResultServiceInterface
 	allMonitorsRepository   AllMonitorsRepositoryInterface
-	userMonitorsRepository  UserMonitorsRepositoryInterface
 	responsesRepository     MonitorResponsesRepositoryInterface
 	workerServiceInstance	WorkerServiceInterface
 	userServiceInstance		UserServiceInterface
 	userRepositoryInstance	UserRepositoryInterface
 )
-
-func init() {
-	userMonitorsRepository = NewUserMonitorsRepositoryFake(0) // todo refactor
-}
 
 func GetMonitoringResultService() MonitoringResultServiceInterface {
 	if monitoringResultService == nil {
@@ -29,7 +24,7 @@ func GetAllMonitorsRepository() AllMonitorsRepositoryInterface {
 }
 
 func GetUserMonitorsRepository(userId int) UserMonitorsRepositoryInterface {
-	return userMonitorsRepository
+	return NewUserMonitorsRepositoryFake(userId)
 }
 
 func GetMonitoringResponsesRepository() MonitorResponsesRepositoryInterface {

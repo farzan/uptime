@@ -24,7 +24,8 @@ func (c *BaseController) Prepare() {
 
 func (c *BaseController) routeNeedsAuth() bool {
 	if c.Ctx.Request.URL.Path == "/user/login" ||
-		c.Ctx.Request.URL.Path == "/user/register" {
+		c.Ctx.Request.URL.Path == "/user/register" ||
+		c.Ctx.Request.URL.Path == "/debug" {
 		return false
 	}
 
