@@ -17,11 +17,20 @@ func (c *DeleteMonitorController) Get() {
 	monId, _ := strconv.Atoi(c.Ctx.Input.Param(":id"))
 	monitor, _ := domain.GetMonitorService().Find(monId)
 
+	if !c.IsAuthorized(monitor.UserId) {
+		return
+	}
+
 	c.Data["monitor"] = monitor
 }
 
 func (c *DeleteMonitorController) Post() {
 	monId, _ := strconv.Atoi(c.Ctx.Input.Param(":id"))
+	monitor, _ := domain.GetMonitorService().Find(monId)
+
+	if !c.IsAuthorized(monitor.UserId) {
+		return
+	}
 
 	go c.deleteMonitor(monId)
 
@@ -36,3 +45,4 @@ func (c *DeleteMonitorController) deleteMonitor(monId int) {
 	domain.GetWorkerService().Stop(monId)
 	domain.GetMonitorService().Delete(monId)
 }
+

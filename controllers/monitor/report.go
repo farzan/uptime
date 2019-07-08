@@ -14,6 +14,12 @@ func(c *ReportController) Get() {
 	c.TplName = "user/monitor/report.tpl"
 
 	monId, _ := strconv.Atoi(c.Ctx.Input.Param(":id"))
+	monitor, _ := domain.GetMonitorService().Find(monId)
+
+	if !c.IsAuthorized(monitor.UserId) {
+		return
+	}
+
 	responses := getResponses(monId)
 
 	c.Data["responses"] = responses

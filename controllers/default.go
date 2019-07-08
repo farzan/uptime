@@ -5,5 +5,10 @@ type MainController struct {
 }
 
 func (c *MainController) Get() {
+	if c.GetSession("userId") != nil {
+		c.Redirect("/user", 302)
+		return
+	}
+
 	c.TplName = "index.tpl"
 }

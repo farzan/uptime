@@ -31,3 +31,12 @@ func (c *BaseController) routeNeedsAuth() bool {
 
 	return true
 }
+
+func (c *BaseController) IsAuthorized(userId int) bool {
+	if userId != c.GetSession("userId").(int) {
+		c.Abort("403")
+		return false
+	}
+
+	return true
+}
