@@ -11,14 +11,17 @@ var(
 	maxDelay = 15000
 )
 
-type HttpServiceFake struct {
+func NewHttpServiceFake() HttpServiceInterface {
+	return httpServiceFake{}
+}
+
+type httpServiceFake struct {
 
 }
 
-func (s HttpServiceFake) Process(request Request) Response {
+func (s httpServiceFake) Process(request Request) Response {
 	startTime := time.Now()
 	delayInMilliseconds := minDelay + rand.Intn(maxDelay-minDelay)
-	//debug.Printf("[%v] Request will take %v ms\n", request.Monitor.Id, delayInMilliseconds)
 	time.Sleep(time.Duration(delayInMilliseconds) * time.Millisecond)
 	endTime := time.Now()
 

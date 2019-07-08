@@ -71,11 +71,7 @@ func waitForResponse(worker worker) Response {
 }
 
 func getResponse(request Request) Response {
-	return getHttpService().Process(request)
-}
-
-func getHttpService() HttpServiceInterface {
-	return HttpServiceFake{}
+	return GetHttpService().Process(request)
 }
 
 func (w worker) Stop() {

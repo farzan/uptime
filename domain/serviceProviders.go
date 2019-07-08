@@ -7,6 +7,7 @@ var (
 	workerServiceInstance	WorkerServiceInterface
 	userServiceInstance		UserServiceInterface
 	userRepositoryInstance	UserRepositoryInterface
+	httpServiceInstance		HttpServiceInterface
 )
 
 func GetMonitoringResultService() MonitoringResultServiceInterface {
@@ -45,7 +46,6 @@ func GetUserService() UserServiceInterface {
 	if userServiceInstance == nil {
 		userServiceInstance = NewUserService()
 	}
-
 	return userServiceInstance
 }
 
@@ -53,6 +53,15 @@ func GetUserRepository() UserRepositoryInterface {
 	if userRepositoryInstance == nil {
 		userRepositoryInstance = NewUserRepositoryFake()
 	}
-
 	return userRepositoryInstance
+}
+
+func GetHttpService() HttpServiceInterface {
+	if httpServiceInstance == nil {
+		// Uncomment following line to change the Http service instance:
+
+		//httpServiceInstance = NewHttpServiceFake()
+		httpServiceInstance = NewHttpService()
+	}
+	return httpServiceInstance
 }
