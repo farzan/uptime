@@ -1,6 +1,22 @@
-<a class="btn btn-secondary mb-5" href="/user">Back</a>
+<a class="btn btn-secondary mb-3" href="/user">Back</a>
 
-<h3 class=" mb-3">Count: {{.count}}</h3>
+<div class="row mb-4">
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="">{{.monitor.Title}}</h3>
+
+                <div>
+                    <strong class="">URL:</strong>
+                    <code><a href="{{.monitor.Url}}" target="_blank">{{.monitor.Url}}</a></code>
+                </div>
+                <div>
+                    <strong class="">Count: {{.count}}</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="row">
     <div class="col">

@@ -24,6 +24,7 @@ func(c *ReportController) Get() {
 
 	c.Data["responses"] = responses
 	c.Data["count"] = len(responses)
+	c.Data["monitor"] = monitor
 }
 
 func getResponses(monId int) []domain.Response {
