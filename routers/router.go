@@ -13,8 +13,8 @@ func init() {
     beego.Router("/user/login", &User.LoginController{})
     beego.Router("/user/logout", &User.LogoutController{})
 
-    beego.Router("/user", &User.DefaultController{})
-    beego.Router("/user/monitor/:id:int/report", &User.ReportController{})
-    beego.Router("/user/monitor/add", &User.AddMonitorController{})
-    beego.Router("/user/monitor/:id:int/delete", &User.DeleteMonitorController{})
+    beego.Router("/user", &monitor.DefaultController{})
+    beego.Router("/user/monitor/:id:int/report", &monitor.ReportController{})
+    beego.Router("/user/monitor/add", &monitor.AddMonitorController{})
+    beego.Router("/user/monitor/:id:int/delete", &monitor.DeleteMonitorController{})
 }
